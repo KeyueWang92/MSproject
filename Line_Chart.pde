@@ -131,7 +131,8 @@ class Line_Chart{
       fill(255);
       strokeWeight(2);
       textSize(15);
-      text(p.candidates[can_hover].name+": $"+p.candidates[can_hover].funding[TIME]/1000000+"M",650,420);
+      text(p.candidates[can_hover].name+": $"+p.candidates[can_hover].funding[TIME]/1000000+"M, "
+            +p.candidates[can_hover].state+", "+p.candidates[can_hover].party,650,420);
       strokeWeight(1);
       textSize(12);
     }

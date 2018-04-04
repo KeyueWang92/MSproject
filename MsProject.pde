@@ -76,7 +76,7 @@ void mouseClicked(){
       STATE = can.state;
       STATE_MAP = "";
     }
-    else if (mouseX >= 620 && mouseX <= 700 && mouseY >= 720 && mouseY <= 750) {
+    else if (mouseX >= 1100 && mouseX <= 1180 && mouseY >= 740 && mouseY <= 770) {
       loop = true;
       TIME = 0;
       line_TIME = 8;
