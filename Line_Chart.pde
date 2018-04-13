@@ -127,9 +127,9 @@ class Line_Chart{
       }
       fill(p.colors[can_hover][0], p.colors[can_hover][1], p.colors[can_hover][2]);
       stroke(p.colors[can_hover][0], p.colors[can_hover][1], p.colors[can_hover][2]);
+      strokeWeight(2);
       draw_aline(lines.get(can_hover));
       fill(255);
-      strokeWeight(2);
       textSize(15);
       text(p.candidates[can_hover].name+": $"+p.candidates[can_hover].funding[TIME]/1000000+"M, "
             +p.candidates[can_hover].state+", "+p.candidates[can_hover].party,650,420);
@@ -185,15 +185,15 @@ class Line_Chart{
         }
       }
       for(int i = 0; i < cans.size(); i++){
-        fill(p.colors[i][0], p.colors[i][1], p.colors[i][2]);
-        stroke(p.colors[i][0], p.colors[i][1], p.colors[i][2]);
-        draw_aline(lines.get(i));
+        fill(p.colors[cans.get(i)][0], p.colors[cans.get(i)][1], p.colors[cans.get(i)][2]);
+        stroke(p.colors[cans.get(i)][0], p.colors[cans.get(i)][1], p.colors[cans.get(i)][2]);
+        strokeWeight(2);
+        draw_aline(lines.get(cans.get(i)));
       }
     }
     
     //for the trend
-    
-   else if (STATE.equals("ALL_STATE") && PARTY.equals("ALL_PARTY")){
+    else if (STATE.equals("ALL_STATE") && PARTY.equals("ALL_PARTY")){
       for(int i = 0; i < fundings.length; i++){
         fill(p.colors[i][0], p.colors[i][1], p.colors[i][2]);
         stroke(p.colors[i][0], p.colors[i][1], p.colors[i][2]);
@@ -290,21 +290,11 @@ class Line_Chart{
     }
   }
   
-  //Candidate clicked(){
-  //  for(int i = 0; i < bs.length; i++){
-  //    if(bs[i].isMouseOn()){
-  //      return p.candidates[i];
-  //    }
-  //  }
-  //  return null;
-  //}
-  
   boolean clicked(){
     boolean selected = false;
     for(int i = 0; i < bs.length; i++){
       if(bs[i].isMouseOn()){
         p.candidates[i].selected = !p.candidates[i].selected;
-        if (p.candidates[i].selected) println(i);
       }
       if(p.candidates[i].selected) {
         selected = true;

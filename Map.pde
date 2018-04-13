@@ -6,7 +6,6 @@ class Map{
     stateid = new HashMap<String, Integer>();
     this.geoMap = geoMap; 
     geoMap.readFile("usContinental");   // Read shapefile.
-    //geoMap.writeAttributesAsTable(51); //get mapinfo
     for (int id = 1; id < 52; id++) {
       stateid.put(geoMap.getAttributeTable().findRow(str(id),0).getString("Abbrev"), id);
     }
@@ -25,29 +24,15 @@ class Map{
   }
 
   void draw(){
-    //background(255);  // Ocean colour
-    stroke(255);               // Boundary colour
-
+    stroke(200);               // Boundary colour
     arrange(TIME); // init the statefunding based on the parameter "month"
     // draw the states that appear in the data in specific color based on the amount of funding
     for (int i = 1; i < 52; i++) {
         if (statefunding.containsKey(i)) fill(select_color(statefunding.get(i)));
         else fill(210);
+        strokeWeight(1);
         geoMap.draw(i);
       }
-    
-    //for hovered candidate
-    //if (can_hover != -1){
-    //  int state = stateid.get(p.candidates[can_hover].state);
-    //  fill(select_color(statefunding.get(stateid.get(p.candidates[can_hover].state))));
-    //  stroke(#fffa00);
-    //  strokeWeight(2);
-    //  geoMap.draw(state);
-    //  strokeWeight(1);
-    //  textSize(20);
-    //  textAlign(TOP,LEFT);
-    //  text(p.candidates[can_hover].lastname+": $"+p.candidates[can_hover].funding[TIME]/1000000+"M", 800,400);
-    //} 
     
     if (can_hover != -1){
       int sid = stateid.get(p.candidates[can_hover].state);
@@ -57,7 +42,6 @@ class Map{
       strokeWeight(1);
     }
     
-    //else if (can2 == null && can != null){
     if (can != null){
       Set<Integer> states = new HashSet<Integer>();
       for (int i = 0; i < p.candidates.length; i++) {
@@ -65,13 +49,38 @@ class Map{
       }
       for (Integer state: states){
         fill(select_color(statefunding.get(state)));
-        stroke(select_color(statefunding.get(state)));
-        strokeWeight(5);
+        stroke(#6a95f2);
+        strokeWeight(2);
         geoMap.draw(state);
         strokeWeight(1);
       }
     }
     
+    //for selected state in the map
+    if (!STATE.equals("ALL_STATE")) {
+      for (int i = 1; i < 52; i++) {
+        if (!statefunding.containsKey(i)) {
+          stroke(200);
+          fill(210);
+          strokeWeight(1);
+          geoMap.draw(i);
+        }
+        else {
+          if (!geoMap.getAttributeTable().findRow(str(i),0).getString("Abbrev").equals(STATE)) {
+            fill(select_color(statefunding.get(i)));
+            stroke(200);
+            strokeWeight(1);
+            geoMap.draw(i);
+          }
+          else {
+            fill(select_color(statefunding.get(i)));
+            stroke(#6a95f2);
+            strokeWeight(2);
+            geoMap.draw(i);
+          }
+        }
+      }
+    }
     //Find the country at mouse position and draw in different colour.
     int id = geoMap.getID(mouseX, mouseY);
     if (id != -1) {

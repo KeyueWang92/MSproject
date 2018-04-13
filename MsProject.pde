@@ -10,7 +10,6 @@ Map map;
 Pie pie_chart;
 Line_Chart lc;
 Candidate can;
-//Candidate can2;
 boolean loop, selected_mode;
 int count; //for the loop rate
 int can_hover;
@@ -26,7 +25,6 @@ void setup(){
   pie_chart = new Pie(p);
   lc = new Line_Chart(p);
   can = null;
-  //can2 = null;
   loop = false;
   selected_mode = false;
   count = 0;
@@ -67,7 +65,6 @@ void draw(){
 void mouseClicked(){
   if(mouseButton == LEFT){
     can = pie_chart.clicked();
-    //can2 = lc.clicked();
     selected_mode = lc.clicked();
     if (selected_mode) can = null;
     TIME = lc.click_time();
@@ -89,46 +86,32 @@ void mouseClicked(){
     }
     //get the clicked candidate from pie chart
     else if (map.clicked() != null){
-      //selected_mode ended
       selected_mode = false;
       lc.reset();
-      
       STATE = map.clicked();
       STATE_MAP = map.clicked();
       PARTY = "ALL_PARTY";
-    }else if(map.clicked() == null){
-      if(can != null){
-        STATE = can.state;
-        PARTY = can.party;
-      }else{
-        STATE = "ALL_STATE";
-        PARTY = "ALL_PARTY";
-      }
+    }
+    else if (map.clicked() == null){
+      //selected_mode = false;
+      STATE = "ALL_STATE";
+      PARTY = "ALL_PARTY";
       STATE_MAP = "";
+      //lc.reset();
     }
-    //println(STATE);
   }else if (mouseButton == RIGHT){
-    //reset all
-    PARTY = "ALL_PARTY";
-    STATE = "ALL_STATE";
-    STATE_MAP = "";
-    can = null;
-    //can2 = null;
-    TIME = 8;
-    loop = false;
-    selected_mode = false;
-    lc.reset();
+    reset();
   }
-  
-  int id = geoMap.getID(mouseX, mouseY);
-  if (id != -1){
-    if(map.statefunding.containsKey(id)){
-      println("$"+map.statefunding.get(id)/1000000+"M");
-      //STATE = Selected_state(id)
-      //textAlign(CENTER,CENTER);
-      //textSize(30);
-      //fill(#ff2088);
-      //text("$"+map.statefunding.get(id)/1000000+"M", 900,150);
-    }
-  }
+}
+
+void reset(){
+  PARTY = "ALL_PARTY";
+  STATE = "ALL_STATE";
+  STATE_MAP = "";
+  can = null;
+  TIME = 8;
+  count = 0;
+  loop = false;
+  selected_mode = false;
+  lc.reset();
 }

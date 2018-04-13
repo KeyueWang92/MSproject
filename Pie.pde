@@ -19,14 +19,7 @@ class Pie{
       Slice s = new Slice(i, p.candidates[i].getParty(), 
                           p.candidates[i].getName(),
                           p.candidates[i].getFunding(),
-                          p.candidates[i].getState());
-      //if(s.party.equals("Republican")){
-      //  s.setColor(#ffb4b4);
-      //}else if(s.party.equals("Democrat")){
-      //  s.setColor(#b5deff);
-      //}else{
-      //  s.setColor(#b3f7af);
-      //}        
+                          p.candidates[i].getState());     
       s.setColor(color(p.colors[i][0],p.colors[i][1],p.colors[i][2]));
       slices.add(s);
     }
@@ -37,9 +30,6 @@ class Pie{
       if(can != null && s.name.equals(can.name)){
         s.highlight = true;
       }
-      //else if(can2 != null && s.name.equals(can2.name)){
-      //  s.highlight = true;
-      //}
       else if(s.state.equals(STATE_MAP)){
         s.highlight = true;
       }else if(can_hover != -1 && p.candidates[can_hover].name.equals(s.name)){
@@ -164,7 +154,6 @@ class Pie{
       }
       fill(c1);
       noStroke();
-      //strokeWeight(1);
       if(mouse_in() || highlight){
         arc(x+10*cos((start+end)/2), y+10*sin((start+end)/2), wid+15, hgt+15, start, end, PIE);
       }else{
